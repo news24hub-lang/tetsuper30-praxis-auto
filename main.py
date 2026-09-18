@@ -1,76 +1,58 @@
-import json
-import os
-import random
+import json, os, random
 from datetime import datetime
 
-# TETSuper30 + PraxisUSA Auto Quiz Generator
+TOPICS = [
+ {
+  "keyword": "Prerna DBT App Status Check",
+  "title": "Prerna DBT App Status Check Kaise Kare 2026 - Step by Step Guide",
+  "intro": "Uttar Pradesh ke basic teachers ke liye Prerna DBT App bahut zaruri hai.",
+  "h1": "Prerna DBT Kya Hai?",
+  "p1": "Prerna DBT (Direct Benefit Transfer) ek yojana hai jisme students ke account me paise bheje jate hain. Teachers ko iska status update karna hota hai.",
+  "h2": "Prerna DBT Status Check Karne Ka Tarika",
+  "p2": "1. Prerna portal par login karein. 2. DBT module par click karein. 3. UDISE code dalein. 4. Student list me status dekhein. Agar pending hai to documents re-upload karein.",
+  "h3": "DBT Me Aane Wali Samasyaen",
+  "p3": "Aksar Aadhaar mismatch ya bank error se DBT fail ho jata hai. Parents se sahi documents lekar update karein. Technical issue ho to BRC par sampark karein."
+ },
+ {
+  "keyword": "MDM Calculator UP",
+  "title": "MDM Calculator UP 2026 - Mid Day Meal Hisab Kaise Lagayen",
+  "intro": "UP ke primary schools me MDM ka hisab lagana har teacher ki zimmedari hai.",
+  "h1": "MDM Kya Hai?",
+  "p1": "Mid Day Meal me bachchon ko dopahar ka bhojan diya jata hai. Sarkar chawal, gehun aur conversion cost deti hai.",
+  "h2": "MDM Calculator Kaise Use Karein",
+  "p2": "1. Month select karein. 2. Attendance dalein. 3. Primary 100g aur Upper Primary 150g ka ration auto calculate hoga. 4. Print karke register me chipka dein.",
+  "h3": "MDM Ke Naye Niyam 2026",
+  "p3": "2026 me nutrition badhane ke liye millet bhi dena hai. Iska record portal par upload karna hoga."
+ }
+]
 
-QUIZ_TEMPLATES = {
-    "tetsuper30": [
-        {
-            "subject": "Child Development & Pedagogy",
-            "q": "According to Piaget, in which stage does abstract thinking develop?",
-            "options": ["Sensorimotor", "Pre-operational", "Concrete Operational", "Formal Operational"],
-            "answer": "Formal Operational",
-            "explanation": "Formal Operational stage (11+ years) is where abstract and logical thinking develops."
-        },
-        {
-            "subject": "EVS",
-            "q": "Which gas is most abundant in Earth's atmosphere?",
-            "options": ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
-            "answer": "Nitrogen",
-            "explanation": "Nitrogen is ~78% of atmosphere."
-        },
-        {
-            "subject": "Maths",
-            "q": "What is the LCM of 12 and 18?",
-            "options": ["36", "24", "18", "72"],
-            "answer": "36",
-            "explanation": "LCM of 12 and 18 is 36."
-        }
-    ],
-    "praxisusa": [
-        {
-            "subject": "Praxis Core Reading",
-            "q": "What is the main idea of a passage primarily determined by?",
-            "options": ["First sentence only", "Supporting details and overall theme", "Last sentence", "Number of paragraphs"],
-            "answer": "Supporting details and overall theme",
-            "explanation": "Main idea is inferred from supporting details and theme."
-        },
-        {
-            "subject": "Praxis Math",
-            "q": "If 3x + 5 = 20, what is x?",
-            "options": ["3", "5", "10", "15"],
-            "answer": "5",
-            "explanation": "3x = 15, so x = 5."
-        }
-    ]
-}
+today = datetime.now().strftime("%Y-%m-%d")
+today_long = datetime.now().strftime("%d %B %Y")
+topic = random.choice(TOPICS)
 
-def generate_daily_quiz():
-    today = datetime.now().strftime("%Y-%m-%d")
-    os.makedirs("quizzes/tetsuper30", exist_ok=True)
-    os.makedirs("quizzes/praxisusa", exist_ok=True)
+html = f"""
+<p><em>Last Updated: {today_long} | By MyBasicEducator Team</em></p>
+<p>{topic['intro']} Is article me hum {topic['keyword']} ki puri jankari denge.</p>
+<h2>{topic['h1']}</h2>
+<p>{topic['p1']} UP Basic Education Department ne is process ko digital kar diya hai.</p>
+<h2>{topic['h2']}</h2>
+<p>{topic['p2']} Teachers ko salah hai ki ve daily data update karein.</p>
+<h2>{topic['h3']}</h2>
+<p>{topic['p3']}</p>
+<h2>Important Links</h2>
+<ul><li>prernaup.in</li><li>udiseplus.gov.in</li><li>mdm.nic.in</li></ul>
+<h2>FAQs</h2>
+<p><b>Q. {topic['keyword']} kaise karein?</b><br>Ans: Upar diye steps follow karein.</p>
+<p><b>Q. Error aaye to kya karein?</b><br>Ans: BRC ya BEO se sampark karein.</p>
+<h3>Conclusion</h3>
+<p>Umeed hai ye jankari pasand aayi hogi. Aise hi updates ke liye MyBasicEducator.com par bane rahein.</p>
+<p><b>Disclaimer:</b> Ye jankari official portals ke adhar par hai. Official website zarur check karein.</p>
+"""
 
-    for brand in ["tetsuper30", "praxisusa"]:
-        questions = QUIZ_TEMPLATES[brand]
-        random.shuffle(questions)
-        quiz = {
-            "brand": brand,
-            "date": today,
-            "title": f"{brand.upper()} Daily Quiz - {today}",
-            "questions": questions[:5],
-            "total_questions": len(questions[:5])
-        }
+post = {"title": topic['title'], "content": html, "labels": f"{topic['keyword']}, Basic Teacher, UP News"}
 
-        # Save JSON
-        path = f"quizzes/{brand}/{today}.json"
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump(quiz, f, indent=2, ensure_ascii=False)
+os.makedirs(f"blogger/MyBasicEducator/{today}", exist_ok=True)
+with open(f"blogger/MyBasicEducator/{today}/adsense_post.json","w",encoding="utf-8") as f:
+    json.dump(post,f,indent=2,ensure_ascii=False)
 
-        print(f"Generated: {path}")
-
-    print("All quizzes generated successfully!")
-
-if __name__ == "__main__":
-    generate_daily_quiz()
+print("AdSense Post Ready")
