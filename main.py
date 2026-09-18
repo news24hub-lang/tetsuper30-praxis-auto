@@ -56,3 +56,14 @@ with open(f"blogger/MyBasicEducator/{today}/adsense_post.json","w",encoding="utf
     json.dump(post,f,indent=2,ensure_ascii=False)
 
 print("AdSense Post Ready")
+
+# --- AUDIO PUBLISH ON ---
+try:
+    from gtts import gTTS
+    os.makedirs(f"blogger/MyBasicEducator/{today}", exist_ok=True)
+    title_for_audio = topic['title']
+    tts = gTTS(text=title_for_audio, lang='hi', slow=False)
+    tts.save(f"blogger/MyBasicEducator/{today}/audio.mp3")
+    print("AUDIO BAN GAYA!")
+except Exception as e:
+    print(e)
