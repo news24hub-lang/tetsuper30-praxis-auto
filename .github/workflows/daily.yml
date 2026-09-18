@@ -20,6 +20,9 @@ jobs:
         with:
           python-version: '3.11'
 
+    - name: Install dependencies
+    run: pip install gTTS
+
       - name: Generate Quizzes
         run: python main.py
 
