@@ -20,16 +20,16 @@ jobs:
         with:
           python-version: '3.11'
 
-    - name: Install dependencies
-    run: pip install gTTS
+      - name: Install dependencies
+        run: pip install gTTS
 
       - name: Generate Quizzes
         run: python main.py
 
       - name: Commit and Push
         run: |
-          git config --global user.name "TETSuper30-Bot"
+          git config --global user.name "TETSuper30 Bot"
           git config --global user.email "bot@tetsuper30.com"
           git add .
-          git diff --staged --quiet || git commit -m "Auto quiz $(date +%Y-%m-%d)"
+          git diff --staged --quiet || git commit -m "Auto: Daily Quiz Update"
           git push
