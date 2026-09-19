@@ -1,0 +1,15 @@
+{
+  "date": "2026-09-19",
+  "quiz": {
+    "q": "UP Basic Education ka MDM full form kya hai?",
+    "options": [
+      "Mid Day Meal",
+      "Mid Daily Meal",
+      "Main Day Meal",
+      "Meal Day Management"
+    ],
+    "ans": "Mid Day Meal",
+    "explain": "MDM matlab Mid Day Meal yojana."
+  },
+  "audio": "audio/quiz-2026-09-19.mp3"
+}
