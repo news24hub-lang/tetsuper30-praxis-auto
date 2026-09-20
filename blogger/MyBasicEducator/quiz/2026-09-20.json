@@ -1,0 +1,15 @@
+{
+  "date": "2026-09-20",
+  "quiz": {
+    "q": "Child Development me Piaget ke kitne stages hote hain?",
+    "options": [
+      "3",
+      "4",
+      "5",
+      "2"
+    ],
+    "ans": "4",
+    "explain": "Piaget ne 4 stages bataye hain - Sensorimotor, Preoperational, Concrete, Formal."
+  },
+  "audio": "audio/quiz-2026-09-20.mp3"
+}
