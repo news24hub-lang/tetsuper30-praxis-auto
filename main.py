@@ -1,88 +1,93 @@
-import os, json, datetime
+import os, json, random
+from datetime import datetime
 from gtts import gTTS
 
-# Aaj ki date
-DATE = datetime.datetime.now().strftime("%Y-%m-%d")
-QUESTION = "UP Basic Education ka MDM full form kya hai?"
-ANSWER_SHORT = "Mid Day Meal, ab PM POSHAN"
-ANSWER_LONG = """
-Mid Day Meal (MDM) yojana Bharat Sarkar ki ek bahut hi mahatvapurn yojana hai. Iska uddeshya sarkari aur sahayata prapt schools me bachchon ko muft me dopahar ka bhojan pradan karna hai.
+# AdSense Friendly Database - Har topic ka detail
+QUIZ_TOPICS = [
+  {
+    "q": "UP Basic Education ka MDM full form kya hai?",
+    "a": "Mid Day Meal, ab PM POSHAN",
+    "topic": "UP Basic",
+    "detail": "Mid Day Meal (MDM) yojana Bharat ki sabse badi school bhojan yojana hai. Iski shuruat 15 August 1995 ko hui thi. 2021 me iska naam badal kar PM POSHAN (Pradhan Mantri Poshan Shakti Nirman) kar diya gaya. Iska mukhya uddeshya bachchon ki poshan sthiti sudharna, enrollment badhana aur school me attendance badhana hai. UP Basic Shiksha Parishad me ye yojana Class 1 se 8 tak lagu hai. Is yojana ka sanchalan Ministry of Education dwara kiya jata hai."
+  },
+  {
+    "q": "Child Development me Piaget ke kitne stages hote hain?",
+    "a": "4 stages - Sensorimotor, Preoperational, Concrete Operational, Formal Operational",
+    "topic": "CDP",
+    "detail": "Jean Piaget ne bachchon ke mansik vikas ke 4 stages bataye. 1) Sensorimotor (0-2 years) - bachcha indriyon se seekhta hai. 2) Preoperational (2-7 years) - kalpanik soch viksit hoti hai. 3) Concrete Operational (7-11 years) - tarkik soch aati hai. 4) Formal Operational (11+ years) - abstract soch viksit hoti hai. CTET, UPTET aur Super TET me is topic se har saal 2-3 prashn aate hain."
+  },
+  {
+    "q": "NEP 2020 me 5+3+3+4 structure kya hai?",
+    "a": "NEP 2020 ka naya school structure",
+    "topic": "NEP 2020",
+    "detail": "National Education Policy 2020 ne 10+2 system ko khatam karke 5+3+3+4 ka naya structure diya hai. 5 saal ka Foundational Stage (3 saal Anganwadi + 2 saal Class 1-2), 3 saal ka Preparatory Stage (Class 3-5), 3 saal ka Middle Stage (Class 6-8) aur 4 saal ka Secondary Stage (Class 9-12). Iska focus rote learning se hatkar conceptual aur skill-based learning par hai."
+  },
+  {
+    "q": "Praxis exam kis country me teacher banne ke liye hota hai?",
+    "a": "USA me teacher certification ke liye",
+    "topic": "Praxis 5205",
+    "detail": "Praxis Exam USA me teacher certification ke liye liya jata hai. ETS (Educational Testing Service) is exam ko conduct karti hai. Praxis 5001, 5205 jaise alag-alag codes hote hain jo alag subjects ke liye hote hain. Isme teaching skills aur subject knowledge dono check kiya jata hai."
+  }
+]
 
-Pehle iska naam Mid Day Meal tha, lekin ab iska naam badal kar **PM POSHAN (Pradhan Mantri Poshan Shakti Nirman)** kar diya gaya hai.
+def main():
+    today = datetime.now().strftime("%Y-%m-%d")
+    quiz = random.choice(QUIZ_TOPICS)
 
-**PM POSHAN ke mukhya uddeshya:**
-1. Bachchon ki poshan sthiti me sudhar karna.
-2. School me namankan (enrollment) aur upasthiti (attendance) badhana.
-3. Bachchon me samaanta aur bhai-chara badhana.
+    os.makedirs("audio", exist_ok=True)
+    os.makedirs("blogger/MyBasicEducator", exist_ok=True)
 
-UP Assistant Teacher, Super TET aur TET pariksha me isse sambandhit prashn aksar pooche jate hain.
+    # AUDIO - Shorts ke liye short hi rahega
+    tts = gTTS(text=f"Today's Quiz. {quiz['q']}. Answer is {quiz['a']}.", lang='hi', slow=False)
+    tts.save(f"audio/{today}.mp3")
 
-**Yaad karne ki trick:** MDM = Mid Day Meal = Dopahar ka Bhojan = PM POSHAN.
-"""
-
-TITLE = f"{QUESTION} - Full Details in Hindi"
-TAGS = ["TET", "Praxis", "CDP", "UP Basic", "Super TET"]
-
-# 1. AdSense Friendly Blogger HTML Generate karo (800+ words)
-html_content = f"""
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>{TITLE}</title>
-</head>
-<body>
+    # BLOGGER HTML - 100% AdSense Friendly
+    html = f"""
 <article>
-<h1>{QUESTION}</h1>
-<p><em>Last Updated: {DATE} | By My Basic Educator Team</em></p>
+<h1>{quiz['q']} - Full Details & Explanation in Hindi</h1>
+<p><em>Published: {today} | My Basic Educator | {quiz['topic']} Preparation</em></p>
 
-<p>UP Basic Education aur TET ki taiyari kar rahe hain? Aaj ka sabse important sawal hai - <strong>{QUESTION}</strong>. Chaliye isko detail me samajhte hain.</p>
+<p>UP TET, Super TET, CTET aur Praxis 5205 ki taiyari kar rahe abhyarthiyon ke liye aaj ka sabse important question hai: <strong>{quiz['q']}</strong>. Is post me hum iska sahi jawab, detail explanation aur exam trick cover karenge.</p>
 
-<h2>{QUESTION} - Sahi Jawab</h2>
-<p><strong>Sahi Jawab hai: {ANSWER_SHORT}</strong></p>
-<p>{ANSWER_LONG}</p>
+<h2>{quiz['q']} - Sahi Jawab</h2>
+<p><strong>Correct Answer: {quiz['a']}</strong></p>
+<p>{quiz['detail']}</p>
 
-<h2>MDM se PM POSHAN tak ka safar</h2>
-<p>Bharat me Mid Day Meal Yojana ki shuruat 15 August 1995 ko hui thi. 2021 me is yojana ko aur behtar banate hue iska naam PM POSHAN Yojana kar diya gaya. Is yojana ke tahat Class 1 se Class 8 tak ke sabhi bachchon ko poshak bhojan diya jata hai.</p>
-<p>UP Basic Shiksha Parishad ke schools me ye yojana bahut hi safalta se chal rahi hai.</p>
+<h2>Exam Point of View Se Important Facts</h2>
+<p>{quiz['topic']} category ka ye sawal pichhle 5 saal me kai baar poocha gaya hai. Agar aap UP Assistant Teacher Bharti 2026 ki taiyari kar rahe hain, to aapko is topic ke theoretical aur practical dono aspects samajhne honge. School management aur bachchon ke vikas se jude is tarah ke prashn exam me aapko extra marks dila sakte hain.</p>
+<p>Is topic ko yaad rakhne ke liye roz revision karna bahut zaroori hai. Hamara daily quiz isi liye banaya gaya hai taaki aapka concept clear rahe.</p>
 
-<h2>Exam ke liye Important Points</h2>
-<ul>
-<li>MDM ka full form: Mid Day Meal</li>
-<li>Naya Naam: PM POSHAN - Pradhan Mantri Poshan Shakti Nirman</li>
-<li>Shuruat: 1995</li>
-<li>Labharthi: Class 1 to 8</li>
-<li>Mantralaya: Ministry of Education</li>
-</ul>
+<h2>Yaad Karne Ki Best Trick</h2>
+<p>{quiz['q']} ko yaad rakhne ke liye {quiz['a']} ko short notes me likh lein. Mnemonics ya kahani bana kar yaad karne se ye lambe samay tak yaad rehta hai. Daily 1 quiz solve karne se aapki accuracy 90% tak badh sakti hai.</p>
 
-<h2>FAQs - Aksar Pooche Jane Wale Sawal</h2>
-<h3>Q1. MDM ka full form kya hai?</h3>
-<p>Ans. MDM ka full form Mid Day Meal hai.</p>
-<h3>Q2. PM POSHAN kya hai?</h3>
-<p>Ans. PM POSHAN, MDM yojana ka hi naya naam hai, jiska pura naam Pradhan Mantri Poshan Shakti Nirman hai.</p>
-<h3>Q3. Kya ye Super TET me poocha jata hai?</h3>
-<p>Ans. Haan, UP Super TET aur Assistant Teacher bharti me is topic se har saal 1-2 sawal aate hain.</p>
+<h2>FAQs</h2>
+<h3>Q1. {quiz['q']}</h3>
+<p>Ans: {quiz['a']} - {quiz['detail'][:150]}...</p>
+
+<h3>Q2. Kya ye topic Super TET 2026 ke liye important hai?</h3>
+<p>Ans: Haan, {quiz['topic']} se jude prashn Super TET aur CTET dono me har saal pooche jate hain.</p>
+
+<h3>Q3. Is topic ki taiyari kaise karein?</h3>
+<p>Ans: NCERT, UP Basic Shiksha ki books aur My Basic Educator ke daily updates se taiyari karein.</p>
 
 <hr>
-<p><strong>Disclaimer:</strong> Ye jankari shiksha ke uddeshya se di gayi hai. Kisi bhi sarkari yojana ki antim jankari ke liye official website dekhein. My Basic Educator kisi bhi sarkari sanstha se juda nahi hai.</p>
+<p><strong>Disclaimer:</strong> Ye jankari shiksha uddeshya ke liye di gayi hai. Kisi bhi sarkari yojana ya exam pattern ki antim pushti ke liye official website dekhein. My Basic Educator ka kisi sarkari sanstha se koi sambandh nahi hai.</p>
 </article>
-</body>
-</html>
 """
 
-# 2. JSON save
-data = {"date": DATE, "title": TITLE, "description": html_content, "tags": TAGS}
-os.makedirs("audio", exist_ok=True)
-os.makedirs("blogger/MyBasicEducator", exist_ok=True)
+    with open(f"blogger/MyBasicEducator/{today}.html", "w", encoding="utf-8") as f:
+        f.write(html)
 
-with open(f"audio/{DATE}.json", "w", encoding="utf-8") as f:
-    json.dump(data, f, ensure_ascii=False, indent=2)
+    data = {
+        "date": today,
+        "title": f"{quiz['q']}",
+        "answer": quiz['a'],
+        "blog_file": f"blogger/MyBasicEducator/{today}.html"
+    }
+    with open(f"audio/{today}.json", "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
-with open(f"blogger/MyBasicEducator/{DATE}.html", "w", encoding="utf-8") as f:
-    f.write(html_content)
+    print(f"AdSense Friendly Done: {quiz['q']}")
 
-# 3. Audio (Shorts ke liye chhota wala hi rakhenge)
-tts = gTTS(text=f"{QUESTION}. Answer hai, {ANSWER_SHORT}. Detail ke liye blog dekhein.", lang='hi')
-tts.save(f"audio/{DATE}.mp3")
-
-print("AdSense Friendly Post Generated!")
+if __name__ == "__main__":
+    main()
