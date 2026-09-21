@@ -1,0 +1,15 @@
+{
+  "date": "2026-09-21",
+  "quiz": {
+    "q": "Praxis exam kis country me teachers ke liye hota hai?",
+    "options": [
+      "USA",
+      "UK",
+      "India",
+      "Canada"
+    ],
+    "ans": "USA",
+    "explain": "Praxis USA me teacher certification ke liye hota hai."
+  },
+  "audio": "audio/quiz-2026-09-21.mp3"
+}
