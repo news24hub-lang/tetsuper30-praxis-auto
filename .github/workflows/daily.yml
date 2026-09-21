@@ -1,10 +1,8 @@
 name: Daily Quiz Auto Generator
-
 on:
   workflow_dispatch:
   schedule:
     - cron: '0 0 * * *'
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,9 +14,12 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install gTTS
-        run: pip install gTTS
+        run: pip install -r requirements.txt
       - name: Run Quiz Generator
         run: python main.py
+        env:
+          BLOGGER_ID: ${{ secrets.BLOGGER_ID }}
+          BLOGGER_TOKEN: ${{ secrets.BLOGGER_TOKEN }}
       - name: Commit files
         run: |
           git config user.name "bot"
