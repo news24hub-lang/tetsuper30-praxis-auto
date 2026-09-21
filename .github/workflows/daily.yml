@@ -19,6 +19,8 @@ jobs:
           BLOGGER_ID: ${{ secrets.BLOGGER_ID }}
           BLOGGER_TOKEN: ${{ secrets.BLOGGER_TOKEN }}
           BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
         run: python main.py
       - run: |
           git config user.name "bot"
