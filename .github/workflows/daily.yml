@@ -29,6 +29,6 @@ jobs:
         run: |
           git config user.name "bot"
           git config user.email "bot@bot.com"
-          git add .
+          git pull --rebase origin main || true
           git commit -m "auto update" || true
-          git push
+          git push origin main
