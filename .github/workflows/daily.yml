@@ -21,8 +21,8 @@ jobs:
         env:
           BLOG_ID: 1647802080466447812
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-          REFRESH_TOKEN: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
+          CLIENT_SECRET: $ {{ secrets.CLIENT_SECRET }}
+          REFRESH_TOKEN: $  {{ secrets.BLOGGER_REFRESH_TOKEN }}
         run: python main.py
       - name: Save Update
         run: |
