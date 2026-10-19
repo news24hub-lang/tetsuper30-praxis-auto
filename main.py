@@ -6,6 +6,9 @@ R_TOKEN=os.environ.get('BLOGGER_REFRESH_TOKEN')
 C_ID=os.environ.get('CLIENT_ID')
 C_SEC=os.environ.get('CLIENT_SECRET')
 
+# === YAHAN APNA THUMBNAIL IMAGE LINK DALO ===
+THUMBNAIL_URL = "https://i.imgur.com/8KmT0zM.png"
+
 def get_token():
     d={"client_id":C_ID,"client_secret":C_SEC,"refresh_token":R_TOKEN,"grant_type":"refresh_token"}
     r=requests.post("https://oauth2.googleapis.com/token",data=d,timeout=30)
@@ -44,6 +47,9 @@ def make_html(today_str, b64=None):
     
     html=f"""
     <div style="font-family:Arial,sans-serif;max-width:800px;margin:auto">
+    <div style="text-align:center;margin-bottom:15px;">
+      <img src="{THUMBNAIL_URL}" style="max-width:100%;border-radius:12px;" alt="TET Super 30 Daily Quiz"/>
+    </div>
     {banner}
     <p style="background:#fff3cd;padding:12px;border-radius:8px;">रोजाना 10 महत्वपूर्ण प्रश्न जो TET / CTET / SuperTET में पूछे जाते हैं। उत्तर के साथ व्याख्या भी दी गई है।</p>
     """
